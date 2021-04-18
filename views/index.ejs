@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Tietokannan hallinta sovellus</title>
+    <link rel="stylesheet" href="/styles.css" />
+  </head>
+  <body>
+    <div class="navi">
+      <ul>
+          <li><a href="./">Lisäykset</a></li>
+          <li><a href="./suomilevyt">suomilevyt</a></li>
+          <li><a href="./ulkomaiset_levyt">Ulkomaiset</a></li>
+      </ul>
+    </div>
+    <h1>Tietokannan hallinta sovellus</h1>
+    <div class="container form">
+      <%# Create new data %>
+      <div>Luo levy lisäyksiin</div>
+      <form action="/levyt" method="POST">
+        <div class="entry">
+          <label for="aname">Artistin nimi</label>
+          <input type="text" placeholder="Artistin nimi" name="aname" />
+        </div>
+        <div class="entry">
+          <label for="rname">Levyn nimi</label>
+          <input type="text" placeholder="Levyn nimi" name="rname" />
+        </div>
+        <div class="entry">
+          <label for="price">Hinta</label>
+          <input type="text" placeholder="Hinta" name="price" />
+        </div>
+        <button class="button button-block" type="submit">Luo</button>
+      </form>
+    </div>
+    <%# read from database %>
+    <div class="container">
+      <table>
+        <thead>
+          <tr>
+            <th colspan="4"><div>Lue</div></th>
+          </tr>
+          <tr>
+            <th>Artistin nimi</th>
+            <th>Levyn nimi</th>
+            <th>Hinta</th>
+            <th>Toiminnot</th>
+          </tr>
+        </thead>
+        <tbody>
+          <% for(var i = 0; i < levyt.length; i++) { %>
+          <tr>
+            <td><%= levyt[i].aname %></td>
+            <td><%= levyt[i].rname %></td>
+            <td><%= levyt[i].price %></td>
+            <td>
+              <button
+                class="button editButton"
+                data-aname="<%=  levyt[i].aname %>"
+                data-rname="<%= levyt[i].rname %>"
+                data-price="<%= levyt[i].price %>"
+              >
+                Muokkaa
+              </button>
+              <button
+                class="button deleteButton"
+                data-aname="<%=  levyt[i].aname %>"
+                data-rname="<%= levyt[i].rname %>"
+                data-price="<%= levyt[i].price %>"
+              >
+                Poista
+              </button>
+            </td>
+          </tr>
+          <% } %>
+        </tbody>
+      </table>
+    </div>
+    <script src="/main.js"></script>
+  </body>
+</html>
