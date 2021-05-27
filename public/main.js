@@ -19,7 +19,7 @@ for (const button of deleteBtn) {
       body: JSON.stringify({
         aname: e.target.dataset.aname,
         rname: e.target.dataset.rname,
-        rname: e.target.dataset.price,
+        price: e.target.dataset.price,
       }),
     })
       .then((res) => {

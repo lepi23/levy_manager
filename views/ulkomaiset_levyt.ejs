@@ -18,7 +18,7 @@
     <div class="container form">
       <%# Create new data %>
       <div>Luo ulkomainen levy</div>
-      <form action="/suomilevyt/levyt" method="POST">
+      <form action="/ulkomaiset_levyt/levyt" method="POST">
         <div class="entry">
           <label for="aname">Artistin nimi</label>
           <input type="text" placeholder="Artistin nimi" name="aname" />
@@ -49,25 +49,25 @@
           </tr>
         </thead>
         <tbody>
-          <% for(var i = 0; i < suomilevyt.length; i++) { %>
+          <% for(var i = 0; i < ulkomaiset_levyt.length; i++) { %>
           <tr>
-            <td><%= suomilevyt[i].aname %></td>
-            <td><%= suomilevyt[i].rname %></td>
-            <td><%= suomilevyt[i].price %></td>
+            <td><%= ulkomaiset_levyt[i].aname %></td>
+            <td><%= ulkomaiset_levyt[i].rname %></td>
+            <td><%= ulkomaiset_levyt[i].price %></td>
             <td>
               <button
                 class="button editButton"
-                data-aname="<%= suomilevyt[i].aname %>"
-                data-rname="<%= suomilevyt[i].rname %>"
-                data-price="<%= suomilevyt[i].price %>"
+                data-aname="<%= ulkomaiset_levyt[i].aname %>"
+                data-rname="<%= ulkomaiset_levyt[i].rname %>"
+                data-price="<%= ulkomaiset_levyt[i].price %>"
               >
                 Edit
               </button>
               <button
                 class="button deleteButton"
-                data-aname="<%= suomilevyt[i].aname %>"
-                data-rname="<%= suomilevyt[i].rname %>"
-                data-price="<%= suomilevyt[i].price %>"
+                data-aname="<%= ulkomaiset_levyt[i].aname %>"
+                data-rname="<%= ulkomaiset_levyt[i].rname %>"
+                data-price="<%= ulkomaiset_levyt[i].price %>"
               >
                 Delete
               </button>
@@ -101,6 +101,6 @@
             </button>
     </div>
 
-    <script src="/main.js"></script>
+    <script src="/ulkomaiset_levyt.js"></script>
   </body>
 </html>

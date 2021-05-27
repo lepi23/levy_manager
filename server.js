@@ -54,7 +54,24 @@ app.get('/suomilevyt', (req, res) => {
       });
   });
 });
-
+//ulkomaiset_levyt page
+app.get('/ulkomaiset_levyt', (req, res) => {
+  MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
+    if (err) return console.error(err);
+    const db = client.db('levykauppaData');
+    const collection = db.collection('ulkomaiset_levyt');
+    collection
+      .find()
+      .toArray()
+      .then((results) => {
+        res.render('ulkomaiset_levyt.ejs', { ulkomaiset_levyt: results });
+      })
+      .catch((error) => {
+        res.redirect('/');
+      });
+  });
+});
+//post to lisäykset
 app.post('/levyt', (req, res) => {
   MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
     if (err) return console.error(err);
@@ -86,7 +103,24 @@ app.post('/suomilevyt/levyt', (req, res) => {
       });
   });
 });
+// post to ulkomaiset_levyt
+app.post('/ulkomaiset_levyt/levyt', (req, res) => {
+  MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
+    if (err) return console.error(err);
+    const db = client.db('levykauppaData');
+    const collection = db.collection('ulkomaiset_levyt');
+    collection
+      .insertOne(req.body)
+      .then(() => {
+        res.redirect('/ulkomaiset_levyt');
+      })
+      .catch(() => {
+        res.redirect('/ulkomaiset_levyt');
+      });
+  });
+});
 
+//delete from lisäykset
 app.delete('/levyt', (req, res) => {
   MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
     if (err) return console.error(err);
@@ -103,6 +137,38 @@ app.delete('/levyt', (req, res) => {
   });
 });
 
+// delete from suomilevyt
+app.delete('/suomilevyt/levyt', (req, res) => {
+  MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
+    if (err) return console.error(err);
+    const db = client.db('levykauppaData');
+    const collection = db.collection('suomilevyt');
+    collection
+      .deleteOne(req.body)
+      .then(() => {
+        res.json(`Deleted record`);
+      })
+      .catch(() => {
+        res.redirect('/suomilevyt');
+      });
+  });
+});
+// delete from ulkomaiset
+app.delete('/ulkomaiset_levyt/levyt', (req, res) => {
+  MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
+    if (err) return console.error(err);
+    const db = client.db('levykauppaData');
+    const collection = db.collection('ulkomaiset_levyt');
+    collection
+      .deleteOne(req.body)
+      .then(() => {
+        res.json(`Deleted record`);
+      })
+      .catch(() => {
+        res.redirect('/ulkomaiset_levyt');
+      });
+  });
+});
 app.put('/levyt', (req, res) => {
   MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
     if (err) return console.error(err);

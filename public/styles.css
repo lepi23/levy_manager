@@ -81,6 +81,14 @@ td {
   display: block;
   width: 100%;
 }
+.button:hover {
+  background:#1c9575;
+  cursor: pointer;
+}
+.button:focus {
+  background:#1c9575;
+  cursor: pointer;
+}
 .form-group {
   display: flex;
 }
@@ -107,5 +115,8 @@ td {
 
 /* Change the link color to #111 (black) on hover */
 .navi li a:hover {
+  background-color: rgba(19, 35, 47, 0.8);
+}
+.navi li a:focus {
   background-color: rgba(19, 35, 47, 0.8);
 }
