@@ -8,6 +8,9 @@ const dbUrl =
   "mongodb+srv://"+process.env.DB_USERNAME+":"+process.env.DB_PASSWORD+"@cluster0.o9ghq.mongodb.net/levytDb?retryWrites=true&w=majority";
 
 const app = express();
+const blogsRouter = require('./controllers/blogs')
+const logger = require('./utils/logger')
+const mongoose = require('mongoose')
 
 /* --------------------------------
  *    APP CONFIG
@@ -16,6 +19,14 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.set('view engine', 'ejs');
 app.use(express.static('public'));
+
+mongoose.connect(dbUrl, { useNewUrlParser: true, useUnifiedTopology: true})
+    .then(() => {
+        logger.info('connected to MongoDB')
+    })
+    .catch((error) => {
+        logger.error('error connection to MongoDB:', error.message)
+    })
 
 /* --------------------------------
  *    ROUTES
@@ -169,6 +180,7 @@ app.delete('/ulkomaiset_levyt/levyt', (req, res) => {
       });
   });
 });
+
 app.put('/levyt', (req, res) => {
   MongoClient.connect(dbUrl, { useUnifiedTopology: true }, (err, client) => {
     if (err) return console.error(err);
